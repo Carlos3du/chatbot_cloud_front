@@ -4,11 +4,11 @@ import requests
 API_url = "https://chatbotcloud.up.railway.app/chat"
 
 
-st.set_page_config(page_title="Chatbot Cloud")
+st.set_page_config(page_title="IsCoolGPT")
 
-st.title("Chatbot")
+st.title("IsCoolGPT")
 
-message = st.text_area("Input")
+message = st.text_area(label="input", label_visibility="hidden")
 
 if st.button("Send", type="primary"):
     if message.strip():
@@ -16,16 +16,15 @@ if st.button("Send", type="primary"):
             with st.spinner("Sending..."):
                 response = requests.post(
                     API_url,
-                    data=message,
+                    params={"message": message},
                     timeout=30
                 )
                 
                 if response.status_code == 200:
                     output = response.json()
-                    st.subheader("Output:")
-                    st.write(output)
+                    st.write(output["response"])
                 else:
-                    st.error(f"Failed to process message: {response}")
+                    st.error(f"Failed to process message: {response.text}")
         
         except requests.exceptions.RequestException as e:
             st.error(f"Conection error: {str(e)}")       
