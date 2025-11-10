@@ -1,6 +1,9 @@
 # Use Python 3.11 slim image as base
 FROM python:3.11-slim
 
+# Instalar uv - gerenciador de pacotes Python ultrarrápido
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
 # Set working directory
 WORKDIR /app
 
