@@ -4,11 +4,11 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /app
 
-# Copy pyproject.toml for dependencies
-COPY pyproject.toml .
+# Copiar arquivos de dependências
+COPY pyproject.toml ./
 
-# Install dependencies using pip and pyproject.toml
-RUN pip install --no-cache-dir .
+# Instalar dependências usando uv
+RUN uv pip install --system -r pyproject.toml
 
 # Copy the frontend application
 COPY frontend/ ./frontend/
